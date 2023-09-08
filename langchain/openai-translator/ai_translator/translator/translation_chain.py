@@ -15,7 +15,7 @@ class TranslationChain:
         # 翻译任务指令始终由 System 角色承担
         template = (
             """You are a translation expert, proficient in various languages. \n
-            Translates {source_language} to {target_language}."""
+            Translates {source_language} to {target_language} using a {target_style}."""
         )
         system_message_prompt = SystemMessagePromptTemplate.from_template(template)
 
@@ -29,17 +29,18 @@ class TranslationChain:
         )
 
         # 为了翻译结果的稳定性，将 temperature 设置为 0
-        chat = ChatOpenAI(model_name=model_name, temperature=0, verbose=verbose)
+        chat = ChatOpenAI(model_name=model_name, temperature=0, verbose=verbose,openai_api_key="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")
 
         self.chain = LLMChain(llm=chat, prompt=chat_prompt_template, verbose=verbose)
 
-    def run(self, text: str, source_language: str, target_language: str) -> (str, bool):
+    def run(self, text: str, source_language: str, target_language: str,target_style: str) -> (str, bool):
         result = ""
         try:
             result = self.chain.run({
                 "text": text,
                 "source_language": source_language,
                 "target_language": target_language,
+                "target_style": target_style
             })
         except Exception as e:
             LOG.error(f"An error occurred during translation: {e}")
