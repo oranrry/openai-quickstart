@@ -19,7 +19,7 @@ from langchain.chat_models import ChatOpenAI
 
 import os
 
-os.environ["SERPAPI_API_KEY"] = "e65622355785aba531fe0f3733c6c429e3ec43457c916a0c3006e6f81d433369"
+os.environ["SERPAPI_API_KEY"] = "XXXXXX"
 def initialize_auto_gpt():
     # 构造 AutoGPT 的工具集
     search = SerpAPIWrapper()
